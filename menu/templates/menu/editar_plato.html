@@ -1,0 +1,38 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Editar Plato: {{ plato.nombre }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Nombre del Plato</label>
+                        {{ form.nombre }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Descripción</label>
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Precio ($)</label>
+                        {{ form.precio }}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.disponible }}
+                        <label class="form-check-label fw-bold">Disponible para la venta</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'lista_platos' %}" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Actualizar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
