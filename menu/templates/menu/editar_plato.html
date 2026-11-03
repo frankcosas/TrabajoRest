@@ -1,69 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Plato</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="mb-0">Editar Plato: {{ plato.nombre }}</h4>
-                    </div>
-                    <div class="card-body">
+{% extends 'menu/base.html' %}
 
-                        <!-- Muestra de errores de validación -->
-                        {% if form.errors %}
-                            <div class="alert alert-danger">
-                                <ul class="mb-0">
-                                    {% for field in form %}
-                                        {% for error in field.errors %}
-                                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-                                        {% endfor %}
-                                    {% endfor %}
-                                    {% for error in form.non_field_errors %}
-                                        <li>{{ error }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-
-                        <form method="POST">
-                            {% csrf_token %}
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Nombre del Plato</label>
-                                {{ form.nombre }}
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Descripción</label>
-                                {{ form.descripcion }}
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Precio ($)</label>
-                                {{ form.precio }}
-                            </div>
-                            <div class="mb-3 form-check">
-                                {{ form.disponible }}
-                                <label class="form-check-label fw-bold">Disponible</label>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <a href="{% url 'lista_platos' %}" class="btn btn-secondary">Cancelar</a>
-                                <button type="submit" class="btn btn-primary">Actualizar Cambios</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white"><h4 class="mb-0">Editar Plato: {{ plato.nombre }}</h4></div>
+            <div class="card-body">
+{% if form.errors %}
+<div class="alert alert-danger">
+    <ul class="mb-0">
+        {% for field in form %}{% for error in field.errors %}
+        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+        {% endfor %}{% endfor %}
+        {% for error in form.non_field_errors %}<li>{{ error }}</li>{% endfor %}
+    </ul>
+</div>
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3"><label class="form-label fw-bold" for="{{ form.nombre.id_for_label }}">Nombre del Plato</label>{{ form.nombre }}</div>
+    <div class="mb-3"><label class="form-label fw-bold" for="{{ form.descripcion.id_for_label }}">Descripción</label>{{ form.descripcion }}</div>
+    <div class="mb-3"><label class="form-label fw-bold" for="{{ form.precio.id_for_label }}">Precio ($)</label>{{ form.precio }}</div>
+    <div class="mb-3"><label class="form-label fw-bold" for="{{ form.categoria.id_for_label }}">Categoría</label>{{ form.categoria }}</div>
+    <div class="mb-3 form-check">{{ form.disponible }}<label class="form-check-label fw-bold" for="{{ form.disponible.id_for_label }}">Disponible</label></div>
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'lista_platos' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Actualizar Cambios</button>
+    </div>
+</form>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+{% endblock %}

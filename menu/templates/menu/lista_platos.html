@@ -11,6 +11,7 @@
         <thead class="table-dark">
             <tr>
                 <th>Nombre</th>
+                <th>Categoría</th>
                 <th>Descripción</th>
                 <th>Precio</th>
                 <th>Estado</th>
@@ -21,8 +22,9 @@
             {% for plato in platos %}
             <tr>
                 <td class="fw-bold">{{ plato.nombre }}</td>
+                <td>{{ plato.categoria|default:"—" }}</td>
                 <td>{{ plato.descripcion }}</td>
-                <td>${{ plato.precio }}</td>
+                <td>${{ plato.precio|stringformat:"d" }}</td>
                 <td>
                     {% if plato.disponible %}
                         <span class="badge bg-success">Disponible</span>
@@ -37,7 +39,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5" class="text-center text-muted">No hay platos registrados actualmente.</td>
+                <td colspan="6" class="text-center text-muted">No hay platos registrados actualmente.</td>
             </tr>
             {% endfor %}
         </tbody>
